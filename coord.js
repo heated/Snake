@@ -7,8 +7,21 @@
   };
 
   Coord.prototype = {
-    plus: function(x, y) {
-      return new Coord(this.x + x, this.y + y);
+    plus: function(pos) {
+      DIMS = Game.Board.DIMS;
+      return new Coord((DIMS[0] + this.x + pos[0]) % DIMS[0],
+                       (DIMS[1] + this.y + pos[1]) % DIMS[1]);
+    },
+
+    isCoord: function(coord) {
+      return this.x == coord.x &&
+             this.y == coord.y;
     }
+  }
+
+  Coord.random = function() {
+    var x = (Math.random() * Game.Board.DIMS[0]) | 0;
+    var y = (Math.random() * Game.Board.DIMS[1]) | 0;
+    return new Game.Coord(x, y);
   }
 })(this);
