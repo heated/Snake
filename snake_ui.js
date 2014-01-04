@@ -11,13 +11,13 @@
     start: function() {
       $(window).keydown(this.handleKeyEvent.bind(this))
       // this.$el.on('keydown', );
-      this.board = new Game.Board();
-      this.gameLoop = setInterval(this.step.bind(this), 50);
       DIMS = Game.Board.DIMS;
       for(var i = 0; i < DIMS[0] * DIMS[1]; i++) {
         var newBlock = $('<div class="block">');
         this.$el.append(newBlock);
       }
+      this.board = new Game.Board();
+      this.gameLoop = setInterval(this.step.bind(this), 1000 / 15);
     },
 
     handleKeyEvent: function(event) {

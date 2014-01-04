@@ -4,6 +4,7 @@
   var Board = Game.Board = function () {
     this.snake = new Game.Snake();
     this.resetApple();
+    this.blocks = $('.block');
   };
 
   Board.DIMS = [50, 50];
@@ -14,18 +15,14 @@
     },
 
     render: function() {
-      var blocks = $('.block');
-      blocks.each(function(i, block) {
-        $(block).css('background', 'black');
-      })
+      var blocks = this.blocks;
 
-      var apple = blocks[this.apple.x * Board.DIMS[0] + this.apple.y];
-      $(apple).css('background', 'red');
+      this.apple.render(blocks, 'red');
 
-
-      this.snake.segments.forEach(function(flesh) {
-        var segment = blocks[flesh.x * Board.DIMS[0] + flesh.y];
-        $(segment).css('background', 'white');
+      var segments = this.snake.segments;
+      segments.forEach(function(flesh, i) {
+        var a = 56 + (200 * (segments.length - i) / segments.length) | 0;
+        flesh.render(blocks, 'rgb('+a+','+a+','+a+')');
       });
     }
   }

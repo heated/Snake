@@ -15,7 +15,7 @@
       this.segments.unshift(newCoord);
 
       if(this.segments.length > this.size) {
-        this.segments.pop();
+        this.segments.pop().render(board.blocks, 'black');
       }
 
       if(this.eat(board.apple)) {
@@ -25,12 +25,19 @@
 
     turn: function(dir) {
       switch(dir) {
-      case 87: dir = "n"; this.movement = [-1, 0]; break; //w
-      case 65: dir = "w"; this.movement = [0, -1]; break; //a
-      case 83: dir = "s"; this.movement = [1, 0]; break; //s
-      case 68: dir = "e"; this.movement = [0, 1]; break; //d
+      case 87: this.attempt("n", [-1, 0]); break; //w
+      case 65: this.attempt("w", [0, -1]); break; //a
+      case 83: this.attempt("s", [1, 0]); break; //s
+      case 68: this.attempt("e", [0, 1]); break; //d
       }
-      this.dir = dir;
+    },
+
+    attempt: function(dir, movement) {
+      var newCoord = this.segments[0].plus(movement);
+      if(!this.contains(newCoord)) {
+        this.dir = dir;
+        this.movement = movement;
+      }
     },
 
     hatch: function(mommy, daddy) {
@@ -47,6 +54,16 @@
         return true;
       }
       return false;
+    },
+
+    contains: function(coord) {
+      var result = false;
+      this.segments.forEach(function(segment) {
+        if(coord.isCoord(segment)) {
+          result = true;
+        }
+      });
+      return result;
     }
   }
 })(this);

@@ -16,6 +16,11 @@
     isCoord: function(coord) {
       return this.x == coord.x &&
              this.y == coord.y;
+    },
+
+    render: function(blocks, color) {
+      var block = blocks[this.x * Game.Board.DIMS[0] + this.y];
+      $(block).css('background', color)
     }
   }
 
