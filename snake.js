@@ -1,25 +1,36 @@
 (function (root) {
   var Game = root.Game = (root.Game || {});
 
-  var Snake = Game.Snake = function () {
-    this.segments = [];
+  var Snake = Game.Snake = function(x, y) {
+    this.segments = [new Game.Coord(x, y)];
     this.dir = "n";
-    this.movement = [0, 1];
-    this.hatch();
-    this.size = 3;
+    this.movement = [-1, 0];
+    this.size = 0;
+    this.grow();
+    this.alive = true;
+    this.paused = false;
   };
 
   Snake.prototype = {
     move: function(board) {
-      newCoord = this.segments[0].plus(this.movement);
-      this.segments.unshift(newCoord);
+      if(!this.paused) {
+        newCoord = this.segments[0].plus(this.movement);
 
-      if(this.segments.length > this.size) {
-        this.segments.pop().render(board.blocks, 'black');
-      }
+        if(this.segments.length >= this.size) {
+          this.segments.pop().render(board.blocks, 'black');
+        }
 
-      if(this.eat(board.apple)) {
-        board.resetApple();
+        if(this.contains(newCoord)) {
+          this.alive = false;
+        }
+
+        this.segments.unshift(newCoord);
+
+        if(this.eat(board.apple)) {
+          board.score += 10;
+          $('#score').text(board.score);
+          board.resetApple();
+        }
       }
     },
 
@@ -29,6 +40,7 @@
       case 65: this.attempt("w", [0, -1]); break; //a
       case 83: this.attempt("s", [1, 0]); break; //s
       case 68: this.attempt("e", [0, 1]); break; //d
+      case 80: this.paused = !this.paused; break; //p
       }
     },
 
@@ -40,12 +52,8 @@
       }
     },
 
-    hatch: function(mommy, daddy) {
-      this.segments.push(new Game.Coord(0, 0));
-    },
-
     grow: function() {
-      this.size += 3;
+      this.size += 5;
     },
 
     eat: function(apple) {

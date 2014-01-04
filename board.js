@@ -2,16 +2,20 @@
   var Game = root.Game = (root.Game || {});
 
   var Board = Game.Board = function () {
-    this.snake = new Game.Snake();
+    this.snake = new Game.Snake(MID, MID);
     this.resetApple();
     this.blocks = $('.block');
+    this.score = 0;
   };
 
-  Board.DIMS = [50, 50];
+  var SIZE = Game.SIZE = 20;
+  var MID = (SIZE / 2) | 0;
 
   Board.prototype = {
     resetApple: function() {
-      this.apple = Game.Coord.random();
+      do {
+        this.apple = Game.Coord.random();
+      } while(this.snake.contains(this.apple))
     },
 
     render: function() {
@@ -21,8 +25,10 @@
 
       var segments = this.snake.segments;
       segments.forEach(function(flesh, i) {
-        var a = 56 + (200 * (segments.length - i) / segments.length) | 0;
-        flesh.render(blocks, 'rgb('+a+','+a+','+a+')');
+        // gradient
+        //var a = 56 + (200 * (segments.length - i) / segments.length) | 0;
+        //flesh.render(blocks, 'rgb('+a+','+a+','+a+')');
+        flesh.render(blocks, 'white');
       });
     }
   }

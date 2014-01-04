@@ -9,29 +9,49 @@
 
   View.prototype = {
     start: function() {
-      $(window).keydown(this.handleKeyEvent.bind(this))
-      // this.$el.on('keydown', );
-      DIMS = Game.Board.DIMS;
-      for(var i = 0; i < DIMS[0] * DIMS[1]; i++) {
-        var newBlock = $('<div class="block">');
-        this.$el.append(newBlock);
+      $(window).keydown(this.handleKeyEvent.bind(this));
+
+      this.$el.empty();
+
+      SIZE = Game.SIZE;
+      console.log("start");
+      for(var i = 0; i < SIZE * SIZE; i++) {
+        this.$el.append($('<div class="block">'));
       }
+      console.log("stop");
+
       this.board = new Game.Board();
-      this.gameLoop = setInterval(this.step.bind(this), 1000 / 15);
+      this.snake = this.board.snake;
+      this.gameLoop = setInterval(this.step.bind(this), 1000 / 10);
     },
 
     handleKeyEvent: function(event) {
+      if(event.keyCode == 82) { this.restart(); }
       this.board.snake.turn(event.keyCode);
     },
 
     step: function() {
-      this.board.snake.move(this.board);
+      this.snake.move(this.board);
       this.board.render(this.$el);
+      if(!this.snake.alive) {
+        this.stop();
+      }
+    },
+
+    stop: function() {
+      alert("YOU DIED");
+      clearInterval(this.gameLoop);
+    },
+
+    restart: function() {
+      clearInterval(this.gameLoop);
+      $(window).off('keydown');
+      this.start();
     }
   }
 })(this);
 
 $(function(){
-  renderField = $($('.wrapper')[0]);
+  var renderField = $($('.wrapper')[0]);
   var game = new Game.View(renderField);
 })

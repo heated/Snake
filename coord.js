@@ -8,9 +8,9 @@
 
   Coord.prototype = {
     plus: function(pos) {
-      DIMS = Game.Board.DIMS;
-      return new Coord((DIMS[0] + this.x + pos[0]) % DIMS[0],
-                       (DIMS[1] + this.y + pos[1]) % DIMS[1]);
+      var SIZE = Game.SIZE;
+      return new Coord((SIZE + this.x + pos[0]) % SIZE,
+                       (SIZE + this.y + pos[1]) % SIZE);
     },
 
     isCoord: function(coord) {
@@ -19,14 +19,14 @@
     },
 
     render: function(blocks, color) {
-      var block = blocks[this.x * Game.Board.DIMS[0] + this.y];
+      var block = blocks[this.x * SIZE + this.y];
       $(block).css('background', color)
     }
   }
 
   Coord.random = function() {
-    var x = (Math.random() * Game.Board.DIMS[0]) | 0;
-    var y = (Math.random() * Game.Board.DIMS[1]) | 0;
+    var x = (Math.random() * SIZE) | 0;
+    var y = (Math.random() * SIZE) | 0;
     return new Game.Coord(x, y);
   }
 })(this);
