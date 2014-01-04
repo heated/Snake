@@ -14,11 +14,9 @@
       this.$el.empty();
 
       SIZE = Game.SIZE;
-      console.log("start");
       for(var i = 0; i < SIZE * SIZE; i++) {
         this.$el.append($('<div class="block">'));
       }
-      console.log("stop");
 
       this.board = new Game.Board();
       this.snake = this.board.snake;

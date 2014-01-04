@@ -20,7 +20,8 @@
           this.segments.pop().render(board.blocks, 'black');
         }
 
-        if(this.contains(newCoord)) {
+        if(this.contains(newCoord) ||
+           board.walls.contains(newCoord)) {
           this.alive = false;
         }
 
@@ -73,5 +74,26 @@
       });
       return result;
     }
+  }
+
+  var Walls = Game.Walls = function(rects) {
+    sections = this.sections = [];
+    rects.forEach(function(rect) {
+      for(var i = 0; i < rect[2]; i++) {
+        for(var j = 0; j < rect[3]; j++) {
+          sections.push(new Game.Coord(rect[0] + i, rect[1] + j));
+        }
+      }
+    });
+  }
+
+  Walls.prototype.contains = function(coord) {
+    var result = false;
+    this.sections.forEach(function(section) {
+      if(coord.isCoord(section)) {
+        result = true;
+      }
+    });
+    return result;
   }
 })(this);
