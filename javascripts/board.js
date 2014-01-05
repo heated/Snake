@@ -22,12 +22,18 @@
 
     this.snake = new Game.Snake(5, 5);
     this.resetApple();
-    this.blocks = $('.block');
+    var blocks = this.blocks = $('.block');
     this.score = 0;
+
+    blocks.width(500 / SIZE);
+    blocks.height(500 / SIZE);
+
+    this.walls.sections.forEach(function(wall) {
+      wall.render(blocks, 'grey');
+    });
   };
 
   var SIZE = Game.SIZE = 20;
-  var MID = (SIZE / 2) | 0;
 
   Board.prototype = {
     resetApple: function() {
@@ -42,9 +48,7 @@
 
       this.apple.render(blocks, 'red');
 
-      this.snake.segments.forEach(function(flesh) {
-        flesh.render(blocks, 'white');
-      });
+      this.snake.segments[0].render(blocks, 'white');
 
       this.walls.sections.forEach(function(wall) {
         wall.render(blocks, 'grey');
