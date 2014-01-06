@@ -13,8 +13,7 @@
 
       this.$el.empty();
 
-      SIZE = Game.SIZE;
-      for(var i = 0; i < SIZE * SIZE; i++) {
+      for(var i = 0; i < Math.pow(Game.SIZE, 2); i++) {
         this.$el.append($('<div class="block">'));
       }
 
@@ -37,7 +36,7 @@
     },
 
     stop: function() {
-      alert("YOU DIED");
+      //alert("YOU DIED");
       clearInterval(this.gameLoop);
     },
 
