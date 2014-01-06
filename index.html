@@ -3,19 +3,29 @@
     <title>SNAKE</title>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js">
     </script>
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js"></script>
     <script src="javascripts/coord.js"></script>
     <script src="javascripts/snake.js"></script>
     <script src="javascripts/board.js"></script>
     <script src="javascripts/snake_ui.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="http://meyerweb.com/eric/tools/css/reset/reset.css">
     <link rel="stylesheet" type="text/css" href="stylesheets/snake.css">
   </head>
+
   <body>
-    <h2 align="center">SNAKE - SCORE: <div id="score">0</div></h2>
-    <div class="wrapper"></div>
-    <div class="centered" style="width: 500;">
-      <h3>Instructions</h3>
+    <div id="header"><h1>Snake</h1></div>
+
+    <div class="wrapper">
+      <div id="left-info" class="column">
+        <div id="score">0 Apples</div>
+        <a href="#" class="startbutton">Restart</a>
+        <h3 class="centered">Instructions</h3>
         Use WASD to move, P to pause, and R to restart.
+      </div>
+
+      <div id="right-content" class="column">
+        <div class="game-wrapper"></div>
+      </div>
     </div>
   </body>
 </html>

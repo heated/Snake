@@ -2,15 +2,15 @@
   var Game = root.Game = (root.Game || {});
 
   var Coord = Game.Coord = function(x, y) {
-    this.x = x;
-    this.y = y;
+    var SIZE = Game.SIZE;
+    this.x = (SIZE + x) % SIZE;
+    this.y = (SIZE + y) % SIZE;
   };
 
   Coord.prototype = {
     plus: function(pos) {
-      var SIZE = Game.SIZE;
-      return new Coord((SIZE + this.x + pos[0]) % SIZE,
-                       (SIZE + this.y + pos[1]) % SIZE);
+      return new Coord(this.x + pos[0],
+                       this.y + pos[1]);
     },
 
     isCoord: function(coord) {
@@ -19,14 +19,14 @@
     },
 
     render: function(blocks, color) {
-      var block = blocks[this.x * SIZE + this.y];
+      var block = blocks[this.x * Game.SIZE + this.y];
       $(block).css('background', color)
     }
   }
 
   Coord.random = function() {
-    var x = (Math.random() * SIZE) | 0;
-    var y = (Math.random() * SIZE) | 0;
+    var x = (Math.random() * Game.SIZE) | 0;
+    var y = (Math.random() * Game.SIZE) | 0;
     return new Game.Coord(x, y);
   }
 })(this);

@@ -3,7 +3,6 @@
 
   var View = Game.View = function(el) {
     this.$el = el;
-    this.start();
   };
 
 
@@ -13,8 +12,7 @@
 
       this.$el.empty();
 
-      SIZE = Game.SIZE;
-      for(var i = 0; i < SIZE * SIZE; i++) {
+      for(var i = 0; i < Math.pow(Game.SIZE, 2); i++) {
         this.$el.append($('<div class="block">'));
       }
 
@@ -50,6 +48,8 @@
 })(this);
 
 $(function(){
-  var renderField = $($('.wrapper')[0]);
+  var renderField = $($('.game-wrapper')[0]);
   var game = new Game.View(renderField);
+  $('.startbutton').on('click', game.start.bind(game));
+  game.start();
 })

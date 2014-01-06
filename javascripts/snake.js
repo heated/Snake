@@ -28,8 +28,8 @@
         this.segments.unshift(newCoord);
 
         if(this.eat(board.apple)) {
-          board.score += 10;
-          $('#score').text(board.score);
+          board.score++;
+          $('#score').text(board.score + " Apples");
           board.resetApple();
         }
       }
@@ -37,9 +37,13 @@
 
     turn: function(dir) {
       switch(dir) {
+      case 38:
       case 87: this.attempt("n", [-1, 0]); break; //w
+      case 37:
       case 65: this.attempt("w", [0, -1]); break; //a
+      case 40:
       case 83: this.attempt("s", [1, 0]); break; //s
+      case 39:
       case 68: this.attempt("e", [0, 1]); break; //d
       case 80: this.paused = !this.paused; break; //p
       }
@@ -68,9 +72,7 @@
     contains: function(coord) {
       var result = false;
       this.segments.forEach(function(segment) {
-        if(coord.isCoord(segment)) {
-          result = true;
-        }
+        result = result || coord.isCoord(segment);
       });
       return result;
     }
@@ -90,9 +92,7 @@
   Walls.prototype.contains = function(coord) {
     var result = false;
     this.sections.forEach(function(section) {
-      if(coord.isCoord(section)) {
-        result = true;
-      }
+      result = result || coord.isCoord(section);
     });
     return result;
   }
