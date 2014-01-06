@@ -1,0 +1,31 @@
+<html>
+  <head>
+    <title>SNAKE</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js">
+    </script>
+    <script src="javascripts/coord.js"></script>
+    <script src="javascripts/snake.js"></script>
+    <script src="javascripts/board.js"></script>
+    <script src="javascripts/snake_ui.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="http://meyerweb.com/eric/tools/css/reset/reset.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/snake.css">
+  </head>
+
+  <body>
+    <div id="header"><h1>Snake</h1></div>
+
+    <div class="wrapper">
+      <div id="left-info" class="column">
+        <div id="score">0 Apples</div>
+        <a href="#" class="startbutton">Restart</a>
+        <h3 class="centered">Instructions</h3>
+        Use WASD to move, P to pause, and R to restart.
+      </div>
+
+      <div id="right-content" class="column">
+        <div class="game-wrapper"></div>
+      </div>
+    </div>
+  </body>
+</html>
