@@ -4,11 +4,10 @@
   var Board = Game.Board = function () {
     this.walls = new Game.Walls([
       //horizontal edges
-      [-6, -1, 11, 2],
-
+      [-6, -1, 12, 2],
 
       //verticle edges
-      [-1, -6, 2, 11],
+      [-1, -6, 2, 12],
 
       //middle walls
       [4, 9, 12, 2],
